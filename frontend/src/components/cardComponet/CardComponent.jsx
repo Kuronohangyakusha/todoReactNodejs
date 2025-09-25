@@ -69,7 +69,7 @@ export function CardComponent({ taches, currentUserId, token, loading = false })
     <>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {loading ? (
-          // Show skeleton cards while loading
+         
           Array.from({ length: 6 }).map((_, index) => (
             <div key={`skeleton-${index}`} style={{ animationDelay: `${index * 100}ms` }}>
               <SkeletonCard />

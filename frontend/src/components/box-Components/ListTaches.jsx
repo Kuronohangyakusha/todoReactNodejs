@@ -33,7 +33,7 @@ function ListeTachesWithSearch({ currentUserId }) {
       return matchesSearch && matchesStatus;
     });
 
-    // Tri des résultats
+   
     filtered.sort((a, b) => {
       let aValue, bValue;
       
@@ -65,9 +65,9 @@ function ListeTachesWithSearch({ currentUserId }) {
 
   // Pagination
   const { currentData, currentPage, totalPages, goToPage, perPage, setPerPage } =
-    usePagination(filteredAndSortedTaches, 3);
+    usePagination(filteredAndSortedTaches, 4);
 
-  // Handlers optimisés avec useCallback
+ 
   const handleSearchChange = useCallback((e) => {
     const value = e.target.value;
     setSearchTerm(value);
@@ -117,7 +117,7 @@ function ListeTachesWithSearch({ currentUserId }) {
   const handlePerPageChange = useCallback((e) => {
     const value = Number(e.target.value);
     setPerPage(value);
-    goToPage(1); // Retourner à la première page
+    goToPage(1); 
   }, [setPerPage, goToPage]);
 
   const clearFilters = useCallback(() => {
@@ -221,24 +221,7 @@ function ListeTachesWithSearch({ currentUserId }) {
       </select>
     </div>
 
-    {/* Tri par */}
-    <div className="flex flex-col">
-      <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-        <svg className="w-4 h-4 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-        </svg>
-        Trier par
-      </label>
-      <select
-        value={sortBy}
-        onChange={handleSortChange}
-        className="border border-gray-200 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white"
-      >
-        <option value="date">📅 Date</option>
-        <option value="nom">📝 Nom</option>
-        <option value="status">📊 Statut</option>
-      </select>
-    </div>
+     
 
     {/* Ordre de tri */}
     <div className="flex flex-col">
@@ -271,7 +254,7 @@ function ListeTachesWithSearch({ currentUserId }) {
         onChange={handlePerPageChange}
         className="border border-gray-200 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white"
       >
-        <option value={3}>3 tâches</option>
+        <option value={3}>4 tâches</option>
         <option value={6}>6 tâches</option>
         <option value={9}>9 tâches</option>
         <option value={12}>12 tâches</option>
@@ -307,7 +290,7 @@ function ListeTachesWithSearch({ currentUserId }) {
           )}
         </div>
 
-      {/* Résultats */}
+     
       {loading || totalResults > 0 ? (
         <>
           <CardComponent taches={currentData} currentUserId={currentUserId} token={token} loading={loading} />
@@ -321,7 +304,7 @@ function ListeTachesWithSearch({ currentUserId }) {
         </>
       ) : (
         <div className="text-center py-16">
-          <div className="mx-auto w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center mb-6">
+          <div className="mx-auto w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center mb-6 ">
             <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
             </svg>

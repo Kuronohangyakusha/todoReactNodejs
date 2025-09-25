@@ -24,6 +24,7 @@ export function EditForm({ editValues, onChange, onSave, onCancel, errorMessage 
           checked={editValues.status}
           onChange={onChange}
         />
+        
         <span>Status terminée</span>
       </label>
       <div className="flex space-x-2 mt-2">
