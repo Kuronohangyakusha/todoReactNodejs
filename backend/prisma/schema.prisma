@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Tache {
+  id          Int          @id @default(autoincrement())
+  nom         String
+  description String
+  status      Boolean      @default(false)
+  userId      Int
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Permission  Permission[] 
+  image       String?  
+  historiques Historique[]
+  createdAt   DateTime     @default(now())
+  audio       String?
+}
+
+enum Role {
+  ADMIN
+  SIMPLE
+}
+
+model User {
+  id          Int          @id @default(autoincrement())
+  login       String       @unique
+  nom         String         @default("Inconnu")
+  password    String        
+  role        Role         @default(SIMPLE)
+  taches      Tache[]
+  Permission  Permission[]
+  historiques Historique[]
+}
+model Historique {
+  id        Int      @id @default(autoincrement())
+  action    String    
+  tacheId   Int
+  userId    Int      
+  date      DateTime @default(now())
+  details   String? 
+  
+  tache Tache @relation(fields: [tacheId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+model Permission {
+  id      Int   @id @default(autoincrement())
+  droit   Droit
+  tacheId Int
+  userId  Int
+  tache   Tache @relation(fields: [tacheId], references: [id], onDelete: Cascade)
+  user    User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, tacheId])
+}
+enum Droit {
+  LIRE
+  MODIFIER
+  CREER
+}
+

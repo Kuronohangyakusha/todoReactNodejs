@@ -1,0 +1,1 @@
+{"version":3,"file":"PermisMiddlware.d.ts","sourceRoot":"","sources":["../../src/middleware/PermisMiddlware.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,OAAO,EAAC,QAAQ,EAAE,MAAM,SAAS,CAAC;AAOzC,cAAM,eAAe;IACnB,OAAO,CAAC,YAAY,CAAe;;IAI3B,gBAAgB,CAAC,GAAG,EAAC,OAAO,EAAE,GAAG,EAAC,QAAQ,EAAE,IAAI,EAAC,QAAQ,GAAI,OAAO,CAAC,IAAI,GAAG,QAAQ,CAAC;CAehG;AAED,eAAO,MAAM,eAAe,iBAAwB,CAAC"}

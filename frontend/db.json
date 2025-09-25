@@ -1,0 +1,25 @@
+{
+  "tache": [
+    {
+      "id": 1,
+      "titre": "Créer la page d'accueil",
+      "description": "Développer la structure de la page d'accueil avec React et Tailwind",
+      "statut": "EN_COURS",
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 2,
+      "titre": "Ajouter l'authentification",
+      "description": "Implémenter le login et l'inscription avec JWT",
+      "statut": "A_FAIRE",
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 3,
+      "titre": "Déployer l'application",
+      "description": "Mettre en production sur Vercel",
+      "statut": "TERMINER",
+      "image": "https://via.placeholder.com/150"
+    }
+  ]
+}
