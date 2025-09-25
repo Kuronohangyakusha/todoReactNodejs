@@ -9,5 +9,6 @@ export declare class TacheController {
     static up(req: Request, res: Response): Promise<Response<any, Record<string, any>>>;
     static assignerPermission(req: Request, res: Response): Promise<Response<any, Record<string, any>>>;
     static getHistorique(req: Request, res: Response): Promise<Response<any, Record<string, any>>>;
+    static getAllHistorique(_req: Request, res: Response): Promise<Response<any, Record<string, any>>>;
 }
 //# sourceMappingURL=TacheController.d.ts.map

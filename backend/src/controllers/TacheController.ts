@@ -188,4 +188,21 @@ static async uploadAudio(req: Request, res: Response) {
     }
 }
 
+    static async getAllHistorique(_req: Request, res: Response) {
+    try {
+        // Récupérer tout l’historique
+        const historique = await prisma.historique.findMany({
+            orderBy: { date: "desc" }, // plus récent d'abord
+            include: {
+                user: true,
+                tache: true // inclure info tâche
+            }
+        });
+
+        return res.json(historique);
+    } catch (err: any) {
+        return res.status(500).json({ error: err.message });
+    }
+}
+
 }

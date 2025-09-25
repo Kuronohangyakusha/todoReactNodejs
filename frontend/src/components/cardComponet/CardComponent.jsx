@@ -3,9 +3,10 @@ import useTache from "../../context/tacheContext";
 import { HistoriqueModal } from "./HistoriqueModal";
 import { TaskCard } from "./TaskCard";
 import { EditForm } from "./EditForm";
+import { SkeletonCard } from "./SkeletonCard";
 import { getPermissionsByUser } from "../../api/api";
 
-export function CardComponent({ taches, currentUserId, token }) {
+export function CardComponent({ taches, currentUserId, token, loading = false }) {
   const { removeTache, updateTache } = useTache();
   const [editingId, setEditingId] = useState(null);
   const [editValues, setEditValues] = useState({ nom: "", description: "", status: false });
@@ -66,35 +67,45 @@ export function CardComponent({ taches, currentUserId, token }) {
 
   return (
     <>
-      <div className="grid gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-        {taches.map((t) => (
-          <div
-            key={t.id}
-            className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden"
-          >
-            <div className="p-6">
-              {editingId === t.id ? (
-                <EditForm
-                  editValues={editValues}
-                  onChange={handleChange}
-                  onSave={saveEdit}
-                  onCancel={cancelEdit}
-                  errorMessage={errorMessage}
-                />
-              ) : (
-                <TaskCard
-                  t={t}
-                  currentUserId={currentUserId}
-                  canEdit={canModify(t)}
-                  canDelete={t.userId === parseInt(currentUserId)}
-                  onEdit={startEdit}
-                  onDelete={removeTache}
-                  onHistory={setShowHistoriqueId}
-                />
-              )}
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {loading ? (
+          // Show skeleton cards while loading
+          Array.from({ length: 6 }).map((_, index) => (
+            <div key={`skeleton-${index}`} style={{ animationDelay: `${index * 100}ms` }}>
+              <SkeletonCard />
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          taches.map((t, index) => (
+            <div
+              key={t.id}
+              className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden transform hover:-translate-y-1 hover:scale-105 animate-fade-in"
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
+              <div className="p-6">
+                {editingId === t.id ? (
+                  <EditForm
+                    editValues={editValues}
+                    onChange={handleChange}
+                    onSave={saveEdit}
+                    onCancel={cancelEdit}
+                    errorMessage={errorMessage}
+                  />
+                ) : (
+                  <TaskCard
+                    t={t}
+                    currentUserId={currentUserId}
+                    canEdit={canModify(t)}
+                    canDelete={t.userId === parseInt(currentUserId)}
+                    onEdit={startEdit}
+                    onDelete={removeTache}
+                    onHistory={setShowHistoriqueId}
+                  />
+                )}
+              </div>
+            </div>
+          ))
+        )}
       </div>
 
       {showHistoriqueId && (

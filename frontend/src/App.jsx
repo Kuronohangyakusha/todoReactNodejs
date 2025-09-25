@@ -7,6 +7,7 @@ import Login from "./components/loginComponent";
 import Register from "./components/Register";
 import ListeTaches from "./components/box-Components/ListTaches";
 import ListeUsers from "./components/box-Components/ListeUsers";
+import { HistoriqueList } from "./components/box-Components/HistoriqueList";
 import Header from "./components/Header";
 
 import { TacheProvider } from "./context/tacheContext";
@@ -109,6 +110,10 @@ export default function App() {
                 <ListeUsers />
               </UserProvider>
             }
+          />
+          <Route
+            path="/historique"
+            element={<HistoriqueList token={token} />}
           />
           <Route path="*" element={<Navigate to="/taches" replace />} />
         </Routes>

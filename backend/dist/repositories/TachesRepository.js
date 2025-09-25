@@ -20,6 +20,7 @@ export class TachesRepository {
                 description: data.description,
                 status: data.status ?? false,
                 image: data.image ?? null,
+                audio: data.audio ?? null,
                 user: { connect: { id: data.userId } }, // Prisma gère createdAt automatiquement
             },
         });

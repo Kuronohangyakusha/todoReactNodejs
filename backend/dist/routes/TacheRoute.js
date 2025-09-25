@@ -10,8 +10,9 @@ router.post("/", upload.fields([{ name: "image" }, { name: "audio" }]), TacheCon
 router.patch("/:id/status", PermissionMiddleware.verifierDroit(Droit.MODIFIER), TacheController.up);
 router.get("/:id", PermissionMiddleware.verifierDroit(Droit.LIRE), TacheController.findById);
 router.put("/:id", upload.fields([{ name: "image" }, { name: "audio" }]), PermissionMiddleware.verifierDroit(Droit.MODIFIER), TacheController.update);
-router.delete("/:id", PermissionMiddleware.verifierDroit(Droit.MODIFIER), TacheController.delete);
+router.delete("/:id", TacheController.delete);
 router.post("/:id/permission", TacheController.assignerPermission);
 router.get("/:id/historique", TacheController.getHistorique);
+router.get("/historique/all", TacheController.getAllHistorique);
 export default router;
 //# sourceMappingURL=TacheRoute.js.map

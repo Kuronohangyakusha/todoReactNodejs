@@ -163,3 +163,15 @@ export const getHistorique = async (tacheId, token) => {
     throw err.response?.data || err;
   }
 };
+
+export const getAllHistorique = async (token) => {
+  if (!token) throw new Error("Token manquant");
+  try {
+    const res = await axios.get(`${API_URL}/tache/historique/all`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return res.data;
+  } catch (err) {
+    throw err.response?.data || err;
+  }
+};

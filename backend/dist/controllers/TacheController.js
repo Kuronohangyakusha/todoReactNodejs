@@ -163,5 +163,21 @@ export class TacheController {
             return res.status(500).json({ error: err.message });
         }
     }
+    static async getAllHistorique(_req, res) {
+        try {
+            // Récupérer tout l’historique
+            const historique = await prisma.historique.findMany({
+                orderBy: { date: "desc" }, // plus récent d'abord
+                include: {
+                    user: true,
+                    tache: true // inclure info tâche
+                }
+            });
+            return res.json(historique);
+        }
+        catch (err) {
+            return res.status(500).json({ error: err.message });
+        }
+    }
 }
 //# sourceMappingURL=TacheController.js.map

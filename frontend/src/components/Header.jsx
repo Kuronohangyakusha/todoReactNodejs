@@ -15,6 +15,7 @@ export default function Header({ login, onLogout }) {
         <Link to="/taches" className="hover:underline">Tâches</Link>
         <Link to="/add-tache" className="hover:underline">Ajouter</Link>
         <Link to="/users" className="hover:underline">Utilisateurs</Link>
+        <Link to="/historique" className="hover:underline">Historique</Link>
       </div>
 
       <h1 className="text-lg font-bold">Mon Application</h1>
