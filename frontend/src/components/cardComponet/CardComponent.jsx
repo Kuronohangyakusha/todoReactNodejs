@@ -11,7 +11,7 @@ export function CardComponent({ taches, currentUserId, token, loading = false })
   const [editingId, setEditingId] = useState(null);
   const [editValues, setEditValues] = useState({ nom: "", description: "", status: false });
   const [errorMessage, setErrorMessage] = useState("");
-  const [showHistoriqueId, setShowHistoriqueId] = useState(null); // ✅ popup
+  const [showHistoriqueId, setShowHistoriqueId] = useState(null);  
   const [userPermissions, setUserPermissions] = useState([]);
 
   useEffect(() => {
@@ -67,7 +67,7 @@ export function CardComponent({ taches, currentUserId, token, loading = false })
 
   return (
     <>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
         {loading ? (
          
           Array.from({ length: 6 }).map((_, index) => (
@@ -82,7 +82,7 @@ export function CardComponent({ taches, currentUserId, token, loading = false })
               className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden transform hover:-translate-y-1 hover:scale-105 animate-fade-in"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className="p-6">
+              <div className="p-4">
                 {editingId === t.id ? (
                   <EditForm
                     editValues={editValues}

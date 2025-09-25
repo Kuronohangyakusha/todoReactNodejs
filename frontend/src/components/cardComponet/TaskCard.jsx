@@ -5,11 +5,11 @@ export function TaskCard({ t, currentUserId, canEdit, canDelete, onEdit, onDelet
   return (
     <>
       {t.image && (
-        <div className="relative mb-4">
+        <div className="relative mb-2">
           <img
             src={`http://localhost:3000/uploads/${t.image}`}
             alt={t.nom}
-            className="w-full h-48 object-cover rounded-xl shadow-md"
+            className="w-full h-32 object-cover rounded-xl shadow-md"
           />
           <div className="absolute top-3 right-3">
             <div className="bg-white bg-opacity-90 backdrop-blur-sm rounded-full p-2">
@@ -22,7 +22,7 @@ export function TaskCard({ t, currentUserId, canEdit, canDelete, onEdit, onDelet
       )}
 
       {t.audio && (
-        <div className="mb-4 p-3 bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl border border-purple-100">
+        <div className="mb-2 p-3 bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl border border-purple-100">
           <div className="flex items-center space-x-2 mb-2">
             <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
@@ -36,7 +36,7 @@ export function TaskCard({ t, currentUserId, canEdit, canDelete, onEdit, onDelet
         </div>
       )}
 
-      <div className="flex items-start justify-between mb-4">
+      <div className="flex items-start justify-between mb-2">
         <h3 className="text-xl font-bold text-gray-900 leading-tight pr-2">{t.nom}</h3>
         <div
           className={`px-3 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1 ${
@@ -50,9 +50,9 @@ export function TaskCard({ t, currentUserId, canEdit, canDelete, onEdit, onDelet
         </div>
       </div>
 
-      <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">{t.description}</p>
+      <p className="text-gray-600 text-sm leading-relaxed mb-2 line-clamp-3">{t.description}</p>
 
-      <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+      <div className="flex items-center justify-between pt-2 border-t border-gray-100">
         <div className="flex items-center space-x-2">
           <div className={`w-3 h-3 rounded-full ${t.status ? "bg-green-500" : "bg-yellow-500"} animate-pulse`}></div>
           <span className="text-xs text-gray-500 font-medium">{t.status ? "Complétée" : "Active"}</span>
