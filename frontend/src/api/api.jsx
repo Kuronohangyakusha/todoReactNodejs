@@ -100,9 +100,23 @@ export const getUsers = async (token) => {
 // Récupérer les permissions d'une tâche
 export const getPermissions = async (tacheId, token) => {
   if (!token) throw new Error("Token manquant");
-  
+
   try {
     const res = await axios.get(`${API_URL}/permissions/tache/${tacheId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return res.data;
+  } catch (err) {
+    throw err.response?.data || err;
+  }
+};
+
+// Récupérer les permissions d'un utilisateur
+export const getPermissionsByUser = async (userId, token) => {
+  if (!token) throw new Error("Token manquant");
+
+  try {
+    const res = await axios.get(`${API_URL}/permissions/user/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return res.data;

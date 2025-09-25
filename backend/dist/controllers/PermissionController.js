@@ -27,6 +27,30 @@ export class PermissionController {
             return res.status(500).json({ error: "Erreur serveur" });
         }
     }
+    // GET /permissions/user/:userId - Récupérer toutes les permissions d'un utilisateur
+    static async getPermissionsByUser(req, res) {
+        try {
+            const currentUserId = req.user?.id;
+            if (!currentUserId)
+                return res.status(401).json({ error: "Utilisateur non authentifié" });
+            const targetUserId = parseInt(req.params.userId ?? "");
+            if (isNaN(targetUserId))
+                return res.status(400).json({ error: "ID d'utilisateur invalide" });
+            // Only allow users to fetch their own permissions
+            if (currentUserId !== targetUserId)
+                return res.status(403).json({ error: "Vous ne pouvez voir que vos propres permissions" });
+            const permissions = await prisma.permission.findMany({
+                where: { userId: targetUserId },
+                include: { tache: true },
+                orderBy: { id: "desc" }
+            });
+            return res.json(permissions);
+        }
+        catch (error) {
+            console.error(error);
+            return res.status(500).json({ error: "Erreur serveur" });
+        }
+    }
     static async createPermission(req, res) {
         try {
             const currentUserId = req.user?.id;

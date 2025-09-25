@@ -7,31 +7,56 @@ const prisma = new PrismaClient();
 export class PermissionController {
 
   // GET /permissions/tache/:tacheId - Récupérer toutes les permissions d'une tâche
- static async getPermissionsByTache(req: Request, res: Response) {
-  try {
-    const userId = req.user?.id;
-    if (!userId) return res.status(401).json({ error: "Utilisateur non authentifié" });
+  static async getPermissionsByTache(req: Request, res: Response) {
+   try {
+     const userId = req.user?.id;
+     if (!userId) return res.status(401).json({ error: "Utilisateur non authentifié" });
 
-    const tacheId = parseInt(req.params.tacheId ?? "");
-    if (isNaN(tacheId)) return res.status(400).json({ error: "ID de tâche invalide" });
+     const tacheId = parseInt(req.params.tacheId ?? "");
+     if (isNaN(tacheId)) return res.status(400).json({ error: "ID de tâche invalide" });
 
-    const tache = await prisma.tache.findUnique({ where: { id: tacheId } });
-    if (!tache) return res.status(404).json({ error: "Tâche introuvable" });
+     const tache = await prisma.tache.findUnique({ where: { id: tacheId } });
+     if (!tache) return res.status(404).json({ error: "Tâche introuvable" });
 
-    if (tache.userId !== userId) return res.status(403).json({ error: "Vous ne pouvez voir que vos propres tâches" });
+     if (tache.userId !== userId) return res.status(403).json({ error: "Vous ne pouvez voir que vos propres tâches" });
 
-    const permissions = await prisma.permission.findMany({
-      where: { tacheId },
-      include: { user: { select: { id: true, login: true } } },
-      orderBy: { id: "desc" }
-    });
+     const permissions = await prisma.permission.findMany({
+       where: { tacheId },
+       include: { user: { select: { id: true, login: true } } },
+       orderBy: { id: "desc" }
+     });
 
-    return res.json(permissions);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "Erreur serveur" });
+     return res.json(permissions);
+   } catch (error) {
+     console.error(error);
+     return res.status(500).json({ error: "Erreur serveur" });
+   }
+ }
+
+  // GET /permissions/user/:userId - Récupérer toutes les permissions d'un utilisateur
+  static async getPermissionsByUser(req: Request, res: Response) {
+    try {
+      const currentUserId = req.user?.id;
+      if (!currentUserId) return res.status(401).json({ error: "Utilisateur non authentifié" });
+
+      const targetUserId = parseInt(req.params.userId ?? "");
+      if (isNaN(targetUserId)) return res.status(400).json({ error: "ID d'utilisateur invalide" });
+
+      // Only allow users to fetch their own permissions
+      if (currentUserId !== targetUserId) return res.status(403).json({ error: "Vous ne pouvez voir que vos propres permissions" });
+
+      const permissions = await prisma.permission.findMany({
+        where: { userId: targetUserId },
+        include: { tache: true },
+        orderBy: { id: "desc" }
+      });
+
+      return res.json(permissions);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Erreur serveur" });
+    }
   }
-}
 
 
 static async createPermission(req: Request, res: Response) {
