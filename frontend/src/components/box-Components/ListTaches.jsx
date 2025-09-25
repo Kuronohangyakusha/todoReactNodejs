@@ -65,7 +65,7 @@ function ListeTachesWithSearch({ currentUserId }) {
 
   // Pagination
   const { currentData, currentPage, totalPages, goToPage, perPage, setPerPage } =
-    usePagination(filteredAndSortedTaches, 4);
+    usePagination(filteredAndSortedTaches, 3);
 
  
   const handleSearchChange = useCallback((e) => {
@@ -254,7 +254,7 @@ function ListeTachesWithSearch({ currentUserId }) {
         onChange={handlePerPageChange}
         className="border border-gray-200 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white"
       >
-        <option value={3}>4 tâches</option>
+        <option value={3}>3 tâches</option>
         <option value={6}>6 tâches</option>
         <option value={9}>9 tâches</option>
         <option value={12}>12 tâches</option>

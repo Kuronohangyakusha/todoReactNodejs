@@ -48,7 +48,7 @@ export default function FormTache() {
         return;
       }
 
-      // Reset form on success
+      
       setNom("");
       setDescription("");
       setImage(null);
